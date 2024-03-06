@@ -1,0 +1,11 @@
+SHOW VARIABLES LIKE 'autocommit';
+SET autocommit=0;
+start transaction;
+use library;
+set @reader_no = (select rno from reader where rname  = '赵楠');
+delete from reader where rno = @reader_no;
+delete from borrow where rno = @reader_no;
+commit;
+select("赵楠已经毕业，成功从两个表中删除") as ' ';
+select * from reader;
+select * from borrow;
